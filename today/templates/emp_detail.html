@@ -1,0 +1,71 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a class="navbar-brand" href="#" data-abc="true">PracticeSite</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+        aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation"> <span
+            class="navbar-toggler-icon"></span> </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"> <a class="nav-link" href="/emp_detail/" data-abc="true">Home <span
+                        class="sr-only">(current)</span></a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/add_employee/" data-abc="true">Add Employee</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#" data-abc="true">Pricing</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#" data-abc="true">Social</a> </li>
+        </ul>
+        <form method="GET" action="" class="form-inline my-2 my-lg-0">
+            {% csrf_token %}
+            <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Serial No.</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>Benefit Type</th>
+                    <th>Benefit Ammount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dtls in e_dtls %}
+                <!--fetching data from two table,start ki 3 field Emp-table ki h jo foreig-key(Employee)se access ho raha or baki ki 2 field direct table se access ho rhai h -->
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{dtls.Employee.first_name}}</td>
+                    <td>{{dtls.Employee.last_name}}</td>
+                    <td>{{dtls.Employee.email}}</td>
+                    <td>{{dtls.benefit_type}}</td>
+                    <td>{{dtls.benefit_ammount}}<i> $</i></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td"><h1 style="color: azure;">Nothing found..</h1></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<style>
+    .table {
+        background-color: #fff;
+        box-shadow: 0px 2px 2px #aaa;
+        margin-top: 50px;
+    }
+
+    body {
+        background-color: grey
+    }
+</style>
